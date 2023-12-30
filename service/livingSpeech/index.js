@@ -26,6 +26,7 @@ module.exports = {
             msg: err.message,
           });
         });
+      connection.release();
     });
   },
   delete: function (req, res) {
@@ -45,6 +46,7 @@ module.exports = {
             msg: err.message,
           });
         });
+      connection.release();
     });
   },
   update: function (req, res) {
@@ -64,6 +66,7 @@ module.exports = {
             msg: err.message,
           });
         });
+      connection.release();
     });
   },
   list: function (req, res) {
