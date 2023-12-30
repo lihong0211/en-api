@@ -67,25 +67,6 @@ module.exports = {
     });
   },
   list: function (req, res) {
-    pool.query($sql.list, (err, result) => {
-      if (err) {
-        return res.json({
-          code: 500,
-          msg: err.message,
-        });
-      }
-      return res.json({
-        code: 200,
-        data: {
-          data: result,
-          total: result.length,
-          page: req?.page || 1,
-        },
-        msg: 'success',
-      });
-    });
-  },
-  list: function (req, res) {
     const { page, size, query } = req.body;
     const listSql = limit('livingSpeech', page, size, query);
 
@@ -100,12 +81,7 @@ module.exports = {
           return res.json({
             code: 200,
             data: {
-              data: result[0].map((item) => {
-                return {
-                  ...item,
-                  type: item.type?.split(','),
-                };
-              }),
+              data: result[0],
               total,
               page,
             },
