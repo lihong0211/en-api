@@ -138,7 +138,8 @@ module.exports = {
     const { page, size, query } = req.body;
     console.log(page, size);
     const listSql = limit('words', page, size, query);
-
+    console.log(pool);
+    console.log(pool.getConnection());
     pool.getConnection().then(async (connection) => {
       const result = await connection.query('select count(1) from words');
       const total = result[0][0]['count(1)'];

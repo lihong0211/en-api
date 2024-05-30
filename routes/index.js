@@ -7,6 +7,8 @@ const affix = require('../service/affix');
 const dialogue = require('../service/dialogue');
 const livingSpeech = require('../service/livingSpeech');
 
+const pddReport = require('../service/pddReport');
+
 //增
 router.post('/words/add', function (req, res, next) {
   words.add(req, res, next);
@@ -97,4 +99,17 @@ router.post('/living-speech/list', function (req, res, next) {
   livingSpeech.list(req, res, next);
 });
 
+// 拼多多
+router.post('/pddReport/chat/add', function (req, res, next) {
+  pddReport.addChat(req, res, next);
+});
+router.post('/pddReport/chat/list', function (req, res, next) {
+  pddReport.listChat(req, res, next);
+});
+router.post('/pddReport/rp/add', function (req, res, next) {
+  pddReport.addRp(req, res, next);
+});
+router.post('/pddReport/rp/list', function (req, res, next) {
+  pddReport.listRp(req, res, next);
+});
 module.exports = router;
