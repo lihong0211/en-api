@@ -18,8 +18,8 @@ module.exports = {
         JSON.stringify(req_content),
         JSON.stringify(res_content),
         cost,
-        String(start_time),
-        String(end_time),
+        start_time,
+        end_time,
       ],
       (err) => {
         if (err) {
@@ -69,10 +69,11 @@ module.exports = {
   },
 
   addRp: function (req, res) {
-    const { sessionid, name, sex, age, diagnosis, medicine, dosage } = req.body;
+    const { sessionid, name, sex, age, diagnosis, medicine, dosage, time } =
+      req.body;
     pool.query(
       $sql.rp.insert,
-      [sessionid, name, sex, age, diagnosis, medicine, dosage],
+      [sessionid, name, sex, age, diagnosis, medicine, dosage, time],
       (err) => {
         if (err) {
           return res.json({

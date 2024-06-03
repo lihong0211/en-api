@@ -1,7 +1,7 @@
 const sqlConfig = {
   rp: {
     insert:
-      'INSERT INTO rp (sessionid, name, age, sex, diagnosis, medicine, dosage) VALUES(?,?,?,?,?,?,?)',
+      'INSERT INTO rp (sessionid, name, age, sex, diagnosis, medicine, dosage, time) VALUES(?,?,?,?,?,?,?,?)',
     list: 'select * from rp',
   },
   chat: {
