@@ -123,7 +123,7 @@ module.exports = {
   addManual: function (req, res) {
     const { sessionid, type, time, session_data } = req.body;
     pool.query(
-      $sql.rp.insert,
+      $sql.manual.insert,
       [
         sessionid,
         type,
