@@ -120,4 +120,51 @@ module.exports = {
       connection.release();
     });
   },
+  addManual: function (req, res) {
+    const { sessionid, type, time } = req.body;
+    pool.query($sql.rp.insert, [sessionid, type, String(time)], (err) => {
+      if (err) {
+        return res.json({
+          code: 500,
+          msg: err.message,
+        });
+      }
+      return res.json({
+        code: 200,
+        msg: 'success',
+      });
+    });
+  },
+  listManual: function (req, res) {
+    const { page, size, query } = req.body;
+    const listSql = limit('manual', page, size, query);
+    console.log(listSql);
+    pool.getConnection().then(async (connection) => {
+      const result = await connection.query('select count(1) from manual');
+      const total = result[0][0]['count(1)'];
+      connection
+        .query(listSql)
+        .then((result) => {
+          return res.json({
+            code: 200,
+            data: {
+              data: result[0].map((item) => {
+                return {
+                  ...item,
+                };
+              }),
+              total,
+              page,
+            },
+          });
+        })
+        .catch((err) => {
+          return res.json({
+            code: 500,
+            msg: err.message,
+          });
+        });
+      connection.release();
+    });
+  },
 };

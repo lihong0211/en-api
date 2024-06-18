@@ -112,4 +112,10 @@ router.post('/pddReport/rp/add', function (req, res, next) {
 router.post('/pddReport/rp/list', function (req, res, next) {
   pddReport.listRp(req, res, next);
 });
+router.post('/pddReport/manual/add', function (req, res, next) {
+  pddReport.addManual(req, res, next);
+});
+router.post('/pddReport/manual/list', function (req, res, next) {
+  pddReport.listManual(req, res, next);
+});
 module.exports = router;
