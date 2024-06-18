@@ -121,19 +121,30 @@ module.exports = {
     });
   },
   addManual: function (req, res) {
-    const { sessionid, type, time } = req.body;
-    pool.query($sql.rp.insert, [sessionid, type, String(time)], (err) => {
-      if (err) {
+    const { sessionid, type, time, session_data } = req.body;
+    pool.query(
+      $sql.rp.insert,
+      [
+        sessionid,
+        type,
+        String(time),
+        !!session_data && typeof session_data === 'object'
+          ? JSON.stringify(session_data)
+          : '',
+      ],
+      (err) => {
+        if (err) {
+          return res.json({
+            code: 500,
+            msg: err.message,
+          });
+        }
         return res.json({
-          code: 500,
-          msg: err.message,
+          code: 200,
+          msg: 'success',
         });
       }
-      return res.json({
-        code: 200,
-        msg: 'success',
-      });
-    });
+    );
   },
   listManual: function (req, res) {
     const { page, size, query } = req.body;

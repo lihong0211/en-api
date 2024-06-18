@@ -10,7 +10,8 @@ const sqlConfig = {
     list: 'select * from chat',
   },
   manual: {
-    insert: 'INSERT INTO manual (sessionid,type, time) VALUES(?,?,?)',
+    insert:
+      'INSERT INTO manual (sessionid,type, time, session_data) VALUES(?,?,?,?)',
     list: 'select * from manual',
   },
 };
