@@ -8,6 +8,7 @@ const dialogue = require('../service/dialogue');
 const livingSpeech = require('../service/livingSpeech');
 
 const pddReport = require('../service/pddReport');
+const jdReport = require('../service/jdReport');
 
 //增
 router.post('/words/add', function (req, res, next) {
@@ -117,5 +118,8 @@ router.post('/pddReport/manual/add', function (req, res, next) {
 });
 router.post('/pddReport/manual/list', function (req, res, next) {
   pddReport.listManual(req, res, next);
+});
+router.post('/jdReport/version/add', function (req, res, next) {
+  jdReport.addVersion(req, res, next);
 });
 module.exports = router;
