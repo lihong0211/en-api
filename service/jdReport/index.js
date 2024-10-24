@@ -10,17 +10,22 @@ var pool = mysql.createPool($util.extend({}, $conf.mysql));
 module.exports = {
   addVersion: function (req, res) {
     const { version, name } = req.body;
-    pool.query($sql.insert, [version, name], (err) => {
-      if (err) {
-        return res.json({
-          code: 500,
-          msg: err.message,
+    pool.getConnection().then(async (connection) => {
+      connection
+        .query($sql.insert, [version, name])
+        .then(() => {
+          return res.json({
+            code: 200,
+            msg: 'success',
+          });
+        })
+        .catch((err) => {
+          return res.json({
+            code: 500,
+            msg: err.message,
+          });
         });
-      }
-      return res.json({
-        code: 200,
-        msg: 'success',
-      });
+      connection.release();
     });
   },
   listVersion: function (req, res) {
