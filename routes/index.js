@@ -122,4 +122,7 @@ router.post('/pddReport/manual/list', function (req, res, next) {
 router.post('/jdReport/version/add', function (req, res, next) {
   jdReport.addVersion(req, res, next);
 });
+router.post('/jdReport/version/list', function (req, res, next) {
+  jdReport.listVersion(req, res, next);
+});
 module.exports = router;
