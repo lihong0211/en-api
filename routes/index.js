@@ -9,6 +9,7 @@ const livingSpeech = require('../service/livingSpeech');
 
 const pddReport = require('../service/pddReport');
 const jdReport = require('../service/jdReport');
+const aliReport = require('../service/aliReport');
 
 //增
 router.post('/words/add', function (req, res, next) {
@@ -124,5 +125,9 @@ router.post('/jdReport/version/add', function (req, res, next) {
 });
 router.post('/jdReport/version/list', function (req, res, next) {
   jdReport.listVersion(req, res, next);
+});
+
+router.post('/aliReport/rp/add', function (req, res, next) {
+  aliReport.add(req, res, next);
 });
 module.exports = router;
