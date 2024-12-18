@@ -1,11 +1,11 @@
 const sqlConfig = {
   insert: `INSERT INTO ali_rp_check
-    (id, createAt, patientSex, patientAge, primaryDiagnosis, illDesc, sicknessDetail, medicines, pass, reason, query) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+    (createAt, patientSex, patientAge, primaryDiagnosis, illDesc, sicknessDetail, medicines, pass, reason, query) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE 
     query = INSERT(query), 
     pass = INSERT(pass), 
-    reason = INSERT(reason);`,
+    reason = INSERT(reason)`,
 };
 
 module.exports = sqlConfig;
