@@ -9,10 +9,33 @@ var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
 module.exports = {
   add: function (req, res) {
-    const { uid, query, pass, reason } = req.body;
+    const {
+      createAt,
+      patientSex,
+      patientAge,
+      primaryDiagnosis,
+      illDesc,
+      sicknessDetail,
+      medicines,
+      pass,
+      reason,
+      query,
+    } = req.body;
+
     pool.getConnection().then(async (connection) => {
       connection
-        .query($sql.insert, [uid, query, pass, reason])
+        .query($sql.insert, [
+          createAt,
+          patientSex,
+          patientAge,
+          primaryDiagnosis,
+          illDesc,
+          sicknessDetail,
+          medicines,
+          pass,
+          reason,
+          query,
+        ])
         .then(() => {
           return res.json({
             code: 200,
