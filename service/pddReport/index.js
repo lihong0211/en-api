@@ -69,11 +69,30 @@ module.exports = {
   },
 
   addRp: function (req, res) {
-    const { sessionid, name, sex, age, diagnosis, medicine, dosage, time } =
-      req.body;
+    const {
+      sessionid,
+      name,
+      sex,
+      age,
+      pddDiagnosis,
+      recommendDiagnosis,
+      medicine,
+      dosage,
+      time,
+    } = req.body;
     pool.query(
       $sql.rp.insert,
-      [sessionid, name, sex, age, diagnosis, medicine, dosage, time],
+      [
+        sessionid,
+        name,
+        sex,
+        age,
+        pddDiagnosis,
+        recommendDiagnosis,
+        medicine,
+        dosage,
+        time,
+      ],
       (err) => {
         if (err) {
           return res.json({
