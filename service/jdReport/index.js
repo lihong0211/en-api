@@ -9,10 +9,10 @@ var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
 module.exports = {
   addVersion: function (req, res) {
-    const { version, name } = req.body;
+    const { version, name, platform } = req.body;
     pool.getConnection().then(async (connection) => {
       connection
-        .query($sql.insert, [version, name])
+        .query($sql.insert, [version, name, platform])
         .then(() => {
           return res.json({
             code: 200,
