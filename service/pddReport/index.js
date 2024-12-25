@@ -79,6 +79,7 @@ module.exports = {
       medicine,
       dosage,
       time,
+      diagnosis,
     } = req.body;
     pool.query(
       $sql.rp.insert,
@@ -87,7 +88,7 @@ module.exports = {
         name,
         sex,
         age,
-        pddDiagnosis,
+        pddDiagnosis || diagnosis,
         recommendDiagnosis,
         medicine,
         dosage,
