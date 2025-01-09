@@ -11,21 +11,25 @@ module.exports = {
   addVersion: function (req, res) {
     const { version, name, platform } = req.body;
     pool.getConnection().then(async (connection) => {
-      connection
-        .query($sql.insert, [version, name, platform])
-        .then(() => {
-          return res.json({
-            code: 200,
-            msg: 'success',
+      try {
+        connection
+          .query($sql.insert, [version, name, platform])
+          .then(() => {
+            return res.json({
+              code: 200,
+              msg: 'success',
+            });
+          })
+          .catch((err) => {
+            return res.json({
+              code: 500,
+              msg: err.message,
+            });
           });
-        })
-        .catch((err) => {
-          return res.json({
-            code: 500,
-            msg: err.message,
-          });
-        });
-      connection.release();
+        connection.release();
+      } catch (e) {
+        console.log(e);
+      }
     });
   },
   listVersion: function (req, res) {
