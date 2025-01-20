@@ -37,6 +37,7 @@ module.exports = {
             reason,
             query,
             rpID,
+            0,
           ])
           .then(() => {
             return res.json({
