@@ -58,7 +58,7 @@ module.exports = {
     });
   },
   get: function (req, res) {
-    const { rpID } = req.query; // 从查询参数中获取 rpID
+    const { rpID } = req.body; // 从查询参数中获取 rpID
 
     if (!rpID) {
       return res.json({
