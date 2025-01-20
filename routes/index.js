@@ -130,4 +130,10 @@ router.post('/jdReport/version/list', function (req, res, next) {
 router.post('/aliReport/rp/add', function (req, res, next) {
   aliReport.add(req, res, next);
 });
+router.post('/aliReport/rp/get', function (req, res, next) {
+  aliReport.get(req, res, next);
+});
+router.post('/aliReport/rp/update', function (req, res, next) {
+  aliReport.update(req, res, next);
+});
 module.exports = router;
