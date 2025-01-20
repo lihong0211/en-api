@@ -75,6 +75,7 @@ module.exports = {
             'SELECT refuse FROM ali_rp_check WHERE rpID = ?',
             [rpID]
           );
+          console.log(rows);
           connection.release(); // 释放连接
           return res.json({
             code: 200,
