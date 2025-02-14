@@ -7,9 +7,10 @@ const affix = require('../service/affix');
 const dialogue = require('../service/dialogue');
 const livingSpeech = require('../service/livingSpeech');
 
-const pddReport = require('../service/pddReport');
-const jdReport = require('../service/jdReport');
-const aliReport = require('../service/aliReport');
+const pddReport = require('../service/peach/pddReport');
+const jdReport = require('../service/peach/jdReport');
+const aliReport = require('../service/peach/aliReport');
+const checkReport = require('../service/peach/check');
 
 //增
 router.post('/words/add', function (req, res, next) {
@@ -136,4 +137,9 @@ router.post('/aliReport/rp/get', function (req, res, next) {
 router.post('/aliReport/rp/update', function (req, res, next) {
   aliReport.update(req, res, next);
 });
+
+router.post('/peach/check/add', function (req, res, next) {
+  checkReport.add(req, res, next);
+});
+
 module.exports = router;
