@@ -31,7 +31,6 @@ module.exports = {
             pass,
             params,
             error,
-            0,
           ])
           .then(() => {
             return res.json({
