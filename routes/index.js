@@ -8,9 +8,10 @@ const dialogue = require('../service/dialogue');
 const livingSpeech = require('../service/livingSpeech');
 
 const pddReport = require('../service/peach/pddReport');
-const jdReport = require('../service/peach/jdReport');
+const version = require('../service/peach/version');
 const aliReport = require('../service/peach/aliReport');
 const checkReport = require('../service/peach/check');
+const config = require('../service/peach/config');
 
 //增
 router.post('/words/add', function (req, res, next) {
@@ -121,11 +122,15 @@ router.post('/pddReport/manual/add', function (req, res, next) {
 router.post('/pddReport/manual/list', function (req, res, next) {
   pddReport.listManual(req, res, next);
 });
+
 router.post('/jdReport/version/add', function (req, res, next) {
-  jdReport.addVersion(req, res, next);
+  version.addVersion(req, res, next);
+});
+router.post('/peach/version/add', function (req, res, next) {
+  version.addVersion(req, res, next);
 });
 router.post('/jdReport/version/list', function (req, res, next) {
-  jdReport.listVersion(req, res, next);
+  version.listVersion(req, res, next);
 });
 
 router.post('/aliReport/rp/add', function (req, res, next) {
@@ -140,6 +145,10 @@ router.post('/aliReport/rp/update', function (req, res, next) {
 
 router.post('/peach/check/add', function (req, res, next) {
   checkReport.add(req, res, next);
+});
+
+router.get('/peach/config/list', function (req, res, next) {
+  config.listConfig(req, res, next);
 });
 
 module.exports = router;
