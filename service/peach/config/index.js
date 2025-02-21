@@ -11,11 +11,13 @@ module.exports = {
       connection
         .query('select * from plugin_config')
         .then((result) => {
+          const data = {};
+          result[0].forEach((item) => {
+            data[item.key] = item.value;
+          });
           return res.json({
             code: 200,
-            data: {
-              data: result[0],
-            },
+            data,
           });
         })
         .catch((err) => {

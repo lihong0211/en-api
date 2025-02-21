@@ -126,9 +126,7 @@ router.post('/pddReport/manual/list', function (req, res, next) {
 router.post('/jdReport/version/add', function (req, res, next) {
   version.addVersion(req, res, next);
 });
-router.post('/peach/version/add', function (req, res, next) {
-  version.addVersion(req, res, next);
-});
+
 router.post('/jdReport/version/list', function (req, res, next) {
   version.listVersion(req, res, next);
 });
@@ -146,9 +144,11 @@ router.post('/aliReport/rp/update', function (req, res, next) {
 router.post('/peach/check/add', function (req, res, next) {
   checkReport.add(req, res, next);
 });
-
 router.get('/peach/config/list', function (req, res, next) {
   config.listConfig(req, res, next);
+});
+router.post('/peach/version/add', function (req, res, next) {
+  version.addVersion(req, res, next);
 });
 
 module.exports = router;
