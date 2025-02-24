@@ -99,29 +99,35 @@ module.exports = {
   },
 
   update: function (req, res) {
-    const { rpID } = req.body;
-    pool.getConnection().then(async (connection) => {
-      try {
-        connection
-          .query('UPDATE ali_rp_check SET refuse = refuse + 1 WHERE rpID = ?', [
-            rpID,
-          ])
-          .then(() => {
-            return res.json({
-              code: 200,
-              msg: 'success',
-            });
-          })
-          .catch((err) => {
-            return res.json({
-              code: 500,
-              msg: err.message,
-            });
-          });
-        connection.release();
-      } catch (e) {
-        console.log(e);
-      }
-    });
+    const { rpID, costTime } = req.body;
+
+    pool
+      .getConnection()
+      .then(async (connection) => {
+        let sql, params;
+
+        if (costTime) {
+          sql = 'UPDATE ali_rp_check SET cost = ? WHERE rpID = ?';
+          params = [costTime, rpID];
+        } else {
+          sql = 'UPDATE ali_rp_check SET refuse = refuse + 1 WHERE rpID = ?';
+          params = [rpID];
+        }
+
+        try {
+          await connection.query(sql, params);
+          res.json({ code: 200, msg: 'success' });
+        } catch (err) {
+          res.json({ code: 500, msg: err.message });
+        } finally {
+          connection.release();
+        }
+      })
+      .catch((err) => {
+        res.json({
+          code: 500,
+          msg: 'Database connection error: ' + err.message,
+        });
+      });
   },
 };
