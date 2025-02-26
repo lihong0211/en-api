@@ -9,7 +9,7 @@ var pool = mysql.createPool($util.extend({}, $conf.mysql));
 module.exports = {
   add: function (req, res) {
     const {
-      createAt,
+      pharmacist,
       patientSex,
       patientAge,
       primaryDiagnosis,
@@ -26,7 +26,7 @@ module.exports = {
       try {
         connection
           .query($sql.insert, [
-            createAt,
+            pharmacist,
             patientSex,
             patientAge,
             primaryDiagnosis,
