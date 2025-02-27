@@ -109,7 +109,7 @@ module.exports = {
         if (costTime) {
           sql =
             'UPDATE ali_rp_check SET costTime = ? WHERE rpID = ? AND (costTime < ? OR costTime IS NULL)';
-          params = [costTime, rpID];
+          params = [costTime, rpID, costTime];
         } else {
           sql = 'UPDATE ali_rp_check SET refuse = refuse + 1 WHERE rpID = ?';
           params = [rpID];
