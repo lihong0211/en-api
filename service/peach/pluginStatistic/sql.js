@@ -15,7 +15,7 @@ const sqlConfig = {
           SELECT 
           user_name, 
           platform,
-          duration,
+          SEC_TO_TIME(duration) AS duration,
           DATE_FORMAT(login_time, '%Y-%m-%d %H:%i:%s') AS login_time,
           DATE_FORMAT(logout_time, '%Y-%m-%d %H:%i:%s') AS logout_time
 
