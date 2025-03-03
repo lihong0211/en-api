@@ -27,7 +27,14 @@ module.exports = {
 
         if (status === 'online') {
           connection
-            .query($sql.insert, [userName, platform, pluginVersion, status])
+            .query($sql.insert, [
+              userName,
+              userName,
+              platform,
+              platform,
+              pluginVersion,
+              status,
+            ])
             .then(() => {
               return res.json({
                 code: 200,
@@ -50,8 +57,32 @@ module.exports = {
     const { platform, userName, startTime, endTime } = req.body;
 
     pool.getConnection().then(async (connection) => {
+      let sql = `SELECT
+                    user_name,
+                    platform,
+                    DATE_FORMAT(login_time, '%Y-%m-%d') AS date,
+                    SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time)) AS seconds,
+                    SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time))) AS hms
+                FROM plugin_statistic
+                WHERE login_time BETWEEN ? AND ?
+                AND logout_time IS NOT NULL`;
+
+      const params = [startTime, endTime]; // 先添加必须的时间参数
+
+      if (platform) {
+        sql += ' AND platform = ?';
+        params.push(platform);
+      }
+
+      if (userName) {
+        sql += ' AND user_name = ?';
+        params.push(userName);
+      }
+
+      sql += ` GROUP BY DATE_FORMAT(login_time, '%Y-%m-%d'), user_name, platform
+             ORDER BY date`;
       connection
-        .query($sql.list, [platform, userName, startTime, endTime])
+        .query(sql, params)
         .then((result) => {
           return res.json({
             code: 200,

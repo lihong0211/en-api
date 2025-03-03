@@ -26,17 +26,19 @@ const sqlConfig = {
         `,
 
   list: `
-          SELECT 
-          DATE_FORMAT(login_time, '%Y-%m-%d') AS login_date,
-          SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time)) AS total_duration_seconds,
-          SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time))) AS total_duration_hms
+          SELECT
+          user_name,
+          platform,
+          DATE_FORMAT(login_time, '%Y-%m-%d') AS date,
+          SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time)) AS seconds,
+          SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time))) AS hms
           FROM plugin_statistic
-          WHERE platform = ? 
-          AND user_name = ? 
+          WHERE (platform = ? OR ? IS NULL)
+          AND (user_name = ? OR ? IS NULL)
           AND login_time BETWEEN ? AND ?
           AND logout_time IS NOT NULL  -- 确保登出时间不为空
           GROUP BY DATE_FORMAT(login_time, '%Y-%m-%d')
-          ORDER BY login_date;
+          ORDER BY date;
           `,
 };
 
