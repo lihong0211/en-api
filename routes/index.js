@@ -12,6 +12,7 @@ const version = require('../service/peach/version');
 const aliReport = require('../service/peach/aliReport');
 const checkReport = require('../service/peach/check');
 const config = require('../service/peach/config');
+const pluginStatistic = require('../service/peach/pluginStatistic');
 
 //增
 router.post('/words/add', function (req, res, next) {
@@ -149,6 +150,16 @@ router.get('/peach/config/list', function (req, res, next) {
 });
 router.post('/peach/version/add', function (req, res, next) {
   version.addVersion(req, res, next);
+});
+
+router.post('/peach/plugin-statistics/add', function (req, res, next) {
+  pluginStatistic.add(req, res, next);
+});
+router.post('/peach/plugin-statistics/list', function (req, res, next) {
+  pluginStatistic.list(req, res, next);
+});
+router.post('/peach/plugin-statistics/detail', function (req, res, next) {
+  pluginStatistic.detail(req, res, next);
 });
 
 module.exports = router;

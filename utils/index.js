@@ -34,6 +34,11 @@ module.exports = {
         }
       });
     }
+    console.log(
+      `SELECT * FROM ${table} ${sql}LIMIT ${
+        (pageNum - 1) * pageSize
+      },${pageSize}`
+    );
     return `SELECT * FROM ${table} ${sql}LIMIT ${
       (pageNum - 1) * pageSize
     },${pageSize}`;
