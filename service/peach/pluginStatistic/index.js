@@ -3,6 +3,7 @@ var mysql = require('mysql2/promise');
 var $conf = require('../../../config/db.pdd.js');
 var $util = require('../../../utils/index.js');
 var $sql = require('./sql.js');
+const dayjs = require('dayjs');
 //使用连接池
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
 
@@ -54,7 +55,13 @@ module.exports = {
     });
   },
   list: function (req, res) {
-    const { platform, userName, startTime, endTime } = req.body;
+    const today = dayjs().format('YYYY-MM-DD');
+    const {
+      platform,
+      userName,
+      startTime = `${today} 00:00:00`,
+      endTime = `${today} 23:59:59`,
+    } = req.body;
 
     pool.getConnection().then(async (connection) => {
       let sql = `SELECT
