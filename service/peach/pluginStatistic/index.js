@@ -28,14 +28,7 @@ module.exports = {
 
         if (status === 'online') {
           connection
-            .query($sql.insert, [
-              userName,
-              userName,
-              platform,
-              platform,
-              pluginVersion,
-              status,
-            ])
+            .query($sql.insert, [userName, platform, pluginVersion, status])
             .then(() => {
               return res.json({
                 code: 200,
