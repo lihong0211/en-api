@@ -60,6 +60,7 @@ module.exports = {
       let sql = `SELECT
                     user_name,
                     platform,
+                    plugin_version,
                     DATE_FORMAT(login_time, '%Y-%m-%d') AS date,
                     SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time)) AS seconds,
                     SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time))) AS hms
@@ -79,7 +80,7 @@ module.exports = {
         params.push(userName);
       }
 
-      sql += ` GROUP BY DATE_FORMAT(login_time, '%Y-%m-%d'), user_name, platform
+      sql += ` GROUP BY DATE_FORMAT(login_time, '%Y-%m-%d'), user_name, platform, plugin_version
              ORDER BY date`;
       connection
         .query(sql, params)

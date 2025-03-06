@@ -15,6 +15,7 @@ const sqlConfig = {
           SELECT 
           user_name, 
           platform,
+          plugin_version,
           SEC_TO_TIME(duration) AS duration,
           DATE_FORMAT(login_time, '%Y-%m-%d %H:%i:%s') AS login_time,
           DATE_FORMAT(logout_time, '%Y-%m-%d %H:%i:%s') AS logout_time
@@ -24,22 +25,6 @@ const sqlConfig = {
           AND user_name = ? 
           AND login_time BETWEEN ? AND ?
         `,
-
-  list: `
-          SELECT
-          user_name,
-          platform,
-          DATE_FORMAT(login_time, '%Y-%m-%d') AS date,
-          SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time)) AS seconds,
-          SEC_TO_TIME(SUM(TIMESTAMPDIFF(SECOND, login_time, logout_time))) AS hms
-          FROM plugin_statistic
-          WHERE (platform = ? OR ? IS NULL)
-          AND (user_name = ? OR ? IS NULL)
-          AND login_time BETWEEN ? AND ?
-          AND logout_time IS NOT NULL  -- 确保登出时间不为空
-          GROUP BY DATE_FORMAT(login_time, '%Y-%m-%d')
-          ORDER BY date;
-          `,
 };
 
 module.exports = sqlConfig;
