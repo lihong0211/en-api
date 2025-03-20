@@ -19,6 +19,13 @@ module.exports = {
       error,
       isNotMatch,
       doctor,
+      fullName,
+      specification,
+      takeDirection,
+      takeFrequence,
+      medicineAmount,
+      takeDose,
+      formType,
     } = req.body;
 
     pool.getConnection().then(async (connection) => {
@@ -35,6 +42,13 @@ module.exports = {
             error,
             isNotMatch,
             doctor,
+            fullName,
+            specification,
+            takeDirection,
+            takeFrequence,
+            medicineAmount,
+            takeDose,
+            formType,
           ])
           .then(() => {
             return res.json({
