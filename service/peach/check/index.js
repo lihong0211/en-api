@@ -19,7 +19,7 @@ module.exports = {
       error,
       isNotMatch,
       doctor,
-      fullName,
+      fullName: medicineName,
       specification,
       takeDirection,
       takeFrequence,
@@ -28,8 +28,30 @@ module.exports = {
       formType,
     } = req.body;
 
+    console.error(req.body);
+
     pool.getConnection().then(async (connection) => {
       try {
+        console.log($sql.insert);
+        console.log([
+          platform,
+          patientSex,
+          patientAge,
+          primaryDiagnosis,
+          medicines,
+          pass,
+          params,
+          error,
+          isNotMatch,
+          doctor,
+          medicineName,
+          specification,
+          takeDirection,
+          takeFrequence,
+          medicineAmount,
+          takeDose,
+          formType,
+        ]);
         connection
           .query($sql.insert, [
             platform,
@@ -42,7 +64,7 @@ module.exports = {
             error,
             isNotMatch,
             doctor,
-            fullName,
+            medicineName,
             specification,
             takeDirection,
             takeFrequence,
