@@ -27,31 +27,22 @@ module.exports = {
       takeDose,
       formType,
     } = req.body;
-
-    console.error(req.body);
+    if (
+      !medicineName ||
+      !specification ||
+      !takeDirection ||
+      !takeFrequence ||
+      !takeDose ||
+      !formType
+    ) {
+      return res.json({
+        code: 500,
+        msg: '缺少参数',
+      });
+    }
 
     pool.getConnection().then(async (connection) => {
       try {
-        console.log($sql.insert);
-        console.log([
-          platform,
-          patientSex,
-          patientAge,
-          primaryDiagnosis,
-          medicines,
-          pass,
-          params,
-          error,
-          isNotMatch,
-          doctor,
-          medicineName,
-          specification,
-          takeDirection,
-          takeFrequence,
-          medicineAmount,
-          takeDose,
-          formType,
-        ]);
         connection
           .query($sql.insert, [
             platform,
