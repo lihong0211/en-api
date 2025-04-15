@@ -3,6 +3,7 @@ var mysql = require('mysql2/promise');
 var $conf = require('../../../config/db.pdd.js');
 var $util = require('../../../utils/index.js');
 var $sql = require('./sql.js');
+var $sqlVersion = require('../pluginStatistic/sql.js');
 const dayjs = require('dayjs');
 //使用连接池
 var pool = mysql.createPool($util.extend({}, $conf.mysql));
@@ -25,6 +26,11 @@ module.exports = {
           .catch((err) => {
             console.error(err);
           });
+        connection.query($sqlVersion.insert, [
+          pluginVersion,
+          userName,
+          platform,
+        ]);
 
         if (status === 'online') {
           connection
